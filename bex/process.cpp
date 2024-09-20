@@ -31,10 +31,12 @@ void process(std::string path)
     }
     file.close();
     std::ofstream writeFile(path);
-    for (auto line : contents)
+    int lastLine = contents.size() - 1;
+    for (int line = 0 ; line < contents.size() ; ++line)
     {
-        line.push_back('\n');
-        writeFile.write(line.c_str(), line.size());
+        if(line != lastLine)
+            contents[line].push_back('\n');
+        writeFile.write(contents[line].c_str(), contents[line].size());
     }
     writeFile.close();
 }
