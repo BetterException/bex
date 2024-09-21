@@ -5,15 +5,13 @@
 
 int main(int argc, char *argv[])
 {
+    int filesModified = 0;
     std::string path = ".";
     if (argc == 2)
     {
         path = argv[1];
     }
     std::filesystem::path pPath(path);
-    std::cout << pPath.c_str() << std::endl;
-    std::cout << pPath.extension() << std::endl;
-    std::cout << pPath.has_extension() << std::endl;
     if (std::filesystem::is_directory(pPath))
     {
         for (const auto &entry : std::filesystem::directory_iterator(pPath))
@@ -21,15 +19,34 @@ int main(int argc, char *argv[])
             if (entry.is_regular_file())
             {
                 std::filesystem::path tempPath(entry);
-                process(tempPath.c_str());
+                if(process(tempPath.c_str())) {
+                    ++filesModified;
+                }
             }
         }
     }
     else
     {
-        std::cout << "Inside single file flow\n";
-        process(pPath.c_str());
+        if(process(pPath.c_str())) {
+            ++filesModified;
+        }
     }
 
+    std::cout << "888888b.\n";
+    std::cout << "888  \"88b\n";
+    std::cout << "888  .88P\n";
+    std::cout << "8888888K.   .d88b.  888  888\n";
+    std::cout << "888  \"Y88b d8P  Y8b `Y8bd8P'\n";
+    std::cout << "888    888 88888888   X88K\n";
+    std::cout << "888   d88P Y8b.     .d8\"\"8b.\n";
+    std::cout << "8888888P\"   \"Y8888  888  888\n";
+
+    if(filesModified == 0) {
+        std::cout << "No files modified" << std::endl;
+    } else if(filesModified == 1) {
+        std::cout << filesModified << " file modified" << std::endl;
+    } else if(filesModified > 1) {
+        std::cout << filesModified << " files modified" << std::endl;
+    }
     return 0;
 }

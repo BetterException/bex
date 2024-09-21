@@ -1,3 +1,3 @@
 #include <iostream>
 
-void process(std::string);
+bool process(std::string);

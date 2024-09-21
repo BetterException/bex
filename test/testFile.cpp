@@ -4,7 +4,7 @@ int main(){
     try {
         cout << "Hello World";
     } catch(exception& e) {
-        cout << "Some boring exception: %%globalException%%";
+        cout << "Some boring exception: !%%globalException%%";
     } catch (...) {
         cout << "Inside exception: !%%globalException%%";
     }

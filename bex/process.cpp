@@ -4,8 +4,9 @@
 
 #include "generate.h"
 
-void process(std::string path)
+bool process(std::string path)
 {
+    bool isModified = false;
     std::ifstream file(path, std::ios::in);
     std::string line = "";
     int lineNumber = 0;
@@ -17,6 +18,7 @@ void process(std::string path)
             size_t index = line.find("%%globalException%%");
             line.erase(index, 19);
             line.insert(index, sha256(path + "@" + std::to_string(lineNumber)));
+            isModified = true;
         }
         contents.push_back(line);
         line.clear();
@@ -32,4 +34,5 @@ void process(std::string path)
         writeFile.write(contents[line].c_str(), contents[line].size());
     }
     writeFile.close();
+    return isModified;
 }
