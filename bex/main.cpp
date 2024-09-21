@@ -21,14 +21,11 @@ int main(int argc, char *argv[])
             if (entry.is_regular_file())
             {
                 std::filesystem::path tempPath(entry);
-                if (tempPath.extension() == ".cpp")
-                {
-                    process(tempPath.c_str());
-                }
+                process(tempPath.c_str());
             }
         }
     }
-    else if (pPath.extension() == ".cpp")
+    else
     {
         std::cout << "Inside single file flow\n";
         process(pPath.c_str());
