@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 #if __has_include("openssl/sha.h")
 #else
     std::cout << "OpenSSL not found! Exiting." << std::endl;
-    exit(1);
+    return 1;
 #endif
     std::string path = ".";
     if (argc == 2)
