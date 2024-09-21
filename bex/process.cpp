@@ -16,6 +16,10 @@ bool process(std::string path, bool createDummyFile)
     }
     std::string line = "";
     int lineNumber = 0;
+#if defined(WIN32) || defined(_WIN32) || \
+    defined(__WIN32) && !defined(__CYGWIN__)
+    std::replace(path.begin(), path.end(), '\\', '/');
+#endif
     std::vector<std::string> contents;
     while (!file.eof())
     {
