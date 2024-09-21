@@ -4,10 +4,13 @@
 
 #include "generate.h"
 
-bool process(std::string path)
+bool process(std::string path, bool createDummyFile = false)
 {
     bool isModified = false;
     std::ifstream file(path, std::ios::in);
+    if(!file.is_open()) {
+        return false;
+    }
     std::string line = "";
     int lineNumber = 0;
     std::vector<std::string> contents;
@@ -25,6 +28,12 @@ bool process(std::string path)
         ++lineNumber;
     }
     file.close();
+    if(createDummyFile) {
+        std::filesystem::path filePath(path);
+        std::string originalFileName = filePath.filename();
+        filePath.replace_filename("dummy-" + originalFileName);
+        path = filePath.c_str();
+    }
     std::ofstream writeFile(path);
     int lastLine = contents.size() - 1;
     for (int line = 0 ; line < contents.size() ; ++line)

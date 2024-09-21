@@ -1,3 +1,3 @@
 #include <iostream>
 
-bool process(std::string);
+bool process(std::string, bool createDummyFile = false);
