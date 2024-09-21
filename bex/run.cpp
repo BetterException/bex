@@ -26,7 +26,7 @@ void run(int argc, char *argv[], bool createDummyFiles = false) {
             if(entry.is_directory())    continue;
             if(!entry.is_symlink() || !entry.is_socket()) {
                 std::filesystem::path tempPath(entry);
-                if(process(tempPath.c_str(), createDummyFiles)) {
+                if(process(tempPath.string(), createDummyFiles)) {
                     ++filesModified;
                 }
             }
@@ -34,7 +34,7 @@ void run(int argc, char *argv[], bool createDummyFiles = false) {
     }
     else
     {
-        if(process(pPath.c_str(), createDummyFiles)) {
+        if(process(pPath.string(), createDummyFiles)) {
             ++filesModified;
         }
     }

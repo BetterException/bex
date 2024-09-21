@@ -4,9 +4,10 @@
 #include <string>
 #include <vector>
 
+#include "process.h"
 #include "generate.h"
 
-bool process(std::string path, bool createDummyFile = false)
+bool process(std::string path, bool createDummyFile)
 {
     bool isModified = false;
     std::ifstream file(path, std::ios::in);
@@ -32,9 +33,9 @@ bool process(std::string path, bool createDummyFile = false)
     file.close();
     if(createDummyFile) {
         std::filesystem::path filePath(path);
-        std::string originalFileName = filePath.filename();
+        std::string originalFileName = filePath.filename().string();
         filePath.replace_filename("dummy-" + originalFileName);
-        path = filePath.c_str();
+        path = filePath.string();
     }
     std::ofstream writeFile(path);
     int lastLine = contents.size() - 1;
