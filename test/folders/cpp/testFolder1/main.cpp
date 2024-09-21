@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
 int main() {
-    cout << "Hello World! - %%globalException%%";
-    return 0;
+  cout << "Hello World! - %%globalException%%";
+  return 0;
 }
