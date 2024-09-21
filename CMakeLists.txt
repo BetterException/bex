@@ -13,6 +13,7 @@ SET(SRC
     "bex/main.cpp"
     "bex/process.cpp"
     "bex/generate.cpp"
+    "bex/run.cpp"
 )
 
 ADD_EXECUTABLE(${PROJECT_NAME} ${SRC})

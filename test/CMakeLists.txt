@@ -4,6 +4,7 @@ SET(cpp_sources
     "../test/CPPTests.cpp"
     "../bex/process.cpp"
     "../bex/generate.cpp"
+    "../bex/run.cpp"
 )
 
 add_executable(${PROJECT_NAME}-test-cpp ${cpp_sources})
@@ -22,6 +23,10 @@ add_test(NAME ${PROJECT_NAME}-test-cpp-cleanup
     COMMAND ${CMAKE_COMMAND} -E remove
         ${CMAKE_CURRENT_BINARY_DIR}/../../test/files/cpp/dummy-testFile1.cpp
         ${CMAKE_CURRENT_BINARY_DIR}/../../test/files/cpp/dummy-testFile2.cpp
+        ${CMAKE_CURRENT_BINARY_DIR}/../../test/folders/cpp/testFolder1/dummy-main.cpp
+        ${CMAKE_CURRENT_BINARY_DIR}/../../test/folders/cpp/testFolder1/test/dummy-test.cpp
+        ${CMAKE_CURRENT_BINARY_DIR}/../../test/folders/cpp/testFolder1/utils/dummy-copy.cpp
+        ${CMAKE_CURRENT_BINARY_DIR}/../../test/folders/cpp/testFolder1/utils/dummy-multiply.cpp
     CONFIGURATIONS
         cleanup
 )
