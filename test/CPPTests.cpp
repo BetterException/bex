@@ -17,22 +17,22 @@ std::string GotoLine(std::fstream& file, unsigned int num){
 
 TEST(CPPTests, SingleException)
 {
-    bool openFile = process("../../test/files/testFile1.cpp", true);
+    bool openFile = process("../../test/files/cpp/testFile1.cpp", true);
     ASSERT_TRUE(openFile);
-    std::fstream file("../../test/files/dummy-testFile1.cpp");
+    std::fstream file("../../test/files/cpp/dummy-testFile1.cpp");
     std::string tempLine = GotoLine(file, 7);
-    ASSERT_EQ(tempLine.substr(40), "beeff2cc803cc13d9c82772478453e27dd341066b8d81ac986a3fe5ef9bb9514\";");
+    ASSERT_EQ(tempLine.substr(40), "67960670761c4938b8f1a807936e9976e2c16f266acb532515d605df38cab37a\";");
     file.close();
 }
 
 TEST(CPPTests, MultiException)
 {
-    bool openFile = process("../../test/files/testFile2.cpp", true);
+    bool openFile = process("../../test/files/cpp/testFile2.cpp", true);
     ASSERT_TRUE(openFile);
-    std::fstream file("../../test/files/dummy-testFile2.cpp");
+    std::fstream file("../../test/files/cpp/dummy-testFile2.cpp");
     std::string tempLine = GotoLine(file, 7);
-    ASSERT_EQ(tempLine.substr(40), "26103d1ab3390c3badd1fa758d81df74789b260562ebe75757c0e5fafcd55ca7\";");
+    ASSERT_EQ(tempLine.substr(40), "ed41753c80312e80c9fde08d86fd31e559a0aa3d7d9cc1d857131f2861437ce6\";");
     tempLine = GotoLine(file, 9);
-    ASSERT_EQ(tempLine.substr(35), "50bd3a2463b73dc214f93180cf581c2b7e1e49078aab430e6b5b78608adfafa4\";");
+    ASSERT_EQ(tempLine.substr(35), "1419eba631a850b8a7f0150ae7fc9e508cf2759d6332439528055f2d0c010d21\";");
     file.close();
 }
