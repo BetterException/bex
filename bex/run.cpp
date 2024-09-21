@@ -2,14 +2,10 @@
 #include <filesystem>
 
 #include "process.h"
+#include "run.h"
 
-void run(int argc, char *argv[], bool createDummyFiles = false) {
+void run(int argc, char *argv[], bool createDummyFiles) {
     int filesModified = 0;
-#if __has_include("openssl/sha.h")
-#else
-    std::cout << "OpenSSL not found! Exiting." << std::endl;
-    exit(1);
-#endif
     std::string path = ".";
     if (argc == 2)
     {

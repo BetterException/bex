@@ -2,8 +2,6 @@
 #include <limits>
 #include <gtest/gtest.h>
 
-#define BEX_TESTING
-
 #include "process.h"
 #include "run.h"
 
