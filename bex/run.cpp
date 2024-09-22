@@ -1,11 +1,14 @@
 #include "run.h"
 
 #include <filesystem>
+#include <future>
 #include <iostream>
+#include <vector>
 
 #include "process.h"
 
 void run(int argc, char *argv[], bool createDummyFiles) {
+  std::vector<std::future<bool>> futures;
   int filesModified = 0;
   std::string path = ".";
   if (argc == 2) {
@@ -21,13 +24,17 @@ void run(int argc, char *argv[], bool createDummyFiles) {
       if (entry.is_directory()) continue;
       if (!entry.is_symlink() || !entry.is_socket()) {
         std::filesystem::path tempPath(entry);
-        if (process(tempPath.string(), createDummyFiles)) {
-          ++filesModified;
-        }
+        futures.push_back(std::async(std::launch::any, process,
+                                     tempPath.string(), createDummyFiles));
       }
     }
   } else {
-    if (process(pPath.string(), createDummyFiles)) {
+    futures.push_back(std::async(std::launch::any, process, pPath.string(),
+                                 createDummyFiles));
+  }
+
+  for (auto &future : futures) {
+    if (future.get()) {
       ++filesModified;
     }
   }
