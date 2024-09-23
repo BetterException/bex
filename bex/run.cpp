@@ -24,13 +24,12 @@ void run(int argc, char *argv[], bool createDummyFiles) {
       if (entry.is_directory()) continue;
       if (!entry.is_symlink() || !entry.is_socket()) {
         std::filesystem::path tempPath(entry);
-        futures.push_back(std::async(std::launch::any, process,
-                                     tempPath.string(), createDummyFiles));
+        futures.push_back(
+            std::async(process, tempPath.string(), createDummyFiles));
       }
     }
   } else {
-    futures.push_back(std::async(std::launch::any, process, pPath.string(),
-                                 createDummyFiles));
+    futures.push_back(std::async(process, pPath.string(), createDummyFiles));
   }
 
   for (auto &future : futures) {
