@@ -14,10 +14,8 @@ find_package(OpenSSL REQUIRED)
 target_link_libraries(${PROJECT_NAME}-test-cpp GTest::gtest_main OpenSSL::SSL)
 target_include_directories(${PROJECT_NAME}-test-cpp PRIVATE "../bex")
 
-add_test(
-    NAME ${PROJECT_NAME}-test-cpp
-    COMMAND ${PROJECT_NAME}-test-cpp
-)
+include(GoogleTest)
+gtest_discover_tests(${PROJECT_NAME}-test-cpp)
 
 add_test(NAME ${PROJECT_NAME}-test-cpp-cleanup
     COMMAND ${CMAKE_COMMAND} -E remove
@@ -27,8 +25,6 @@ add_test(NAME ${PROJECT_NAME}-test-cpp-cleanup
         ${CMAKE_CURRENT_BINARY_DIR}/../../test/folders/cpp/testFolder1/test/dummy-test.cpp
         ${CMAKE_CURRENT_BINARY_DIR}/../../test/folders/cpp/testFolder1/utils/dummy-copy.cpp
         ${CMAKE_CURRENT_BINARY_DIR}/../../test/folders/cpp/testFolder1/utils/dummy-multiply.cpp
-    CONFIGURATIONS
-        cleanup
 )
 
 set_tests_properties(
