@@ -22,9 +22,6 @@ ADD_EXECUTABLE(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE OpenSSL::Crypto)
 
-get_target_property(ssl_location OpenSSL::Crypto IMPORTED_LOCATION)
-get_filename_component(ssl_library ${ssl_location} REALPATH)
-
 TARGET_INCLUDE_DIRECTORIES(${PROJECT_NAME} PRIVATE "bex")
 
 install(
@@ -38,6 +35,8 @@ if(WIN32)
         DESTINATION ${CMAKE_BINARY_DIR}/bex-app
     )
 else()
+    get_target_property(ssl_location OpenSSL::Crypto IMPORTED_LOCATION)
+    get_filename_component(ssl_library ${ssl_location} REALPATH)
     install(
         FILES ${ssl_library}
         DESTINATION ${CMAKE_BINARY_DIR}/bex-app
