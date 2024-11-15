@@ -1,5 +1,4 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.20)
-find_package(OpenSSL REQUIRED)
 include(InstallRequiredSystemLibraries)
 
 PROJECT(bex)
@@ -20,7 +19,8 @@ SET(SRC
 
 ADD_EXECUTABLE(${PROJECT_NAME} ${SRC})
 
-target_link_libraries(${PROJECT_NAME} PRIVATE OpenSSL::Crypto)
+find_package(OpenSSL REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE OpenSSL::SSL)
 
 TARGET_INCLUDE_DIRECTORIES(${PROJECT_NAME} PRIVATE "bex")
 
@@ -31,11 +31,15 @@ install(
 
 if(WIN32)
     install(
-        FILES "C:/Program Files/OpenSSL-Win64/libcrypto-3-x64.dll"
+        FILES
+        "C:/Program Files/OpenSSL-Win64/libcrypto-3-x64.dll"
+        "C:/Program Files/OpenSSL-Win64/libssl-3-x64.dll"
+        "C:/Windows/System32/msvcp140.dll"
+        "C:/Windows/System32/vcruntime140.dll"
         DESTINATION ${CMAKE_BINARY_DIR}/bex-app
     )
 else()
-    get_target_property(ssl_location OpenSSL::Crypto IMPORTED_LOCATION)
+    get_target_property(ssl_location OpenSSL::SSL IMPORTED_LOCATION)
     get_filename_component(ssl_library ${ssl_location} REALPATH)
     install(
         FILES ${ssl_library}
