@@ -27,7 +27,7 @@ TARGET_INCLUDE_DIRECTORIES(${PROJECT_NAME} PRIVATE "bex")
 
 install(
     TARGETS ${PROJECT_NAME}
-    DESTINATION ${CMAKE_BINARY_DIR}/bex-app
+    DESTINATION ${CMAKE_INSTALL_PREFIX}
 )
 
 if(WIN32)
@@ -37,13 +37,13 @@ if(WIN32)
         "C:/Program Files/OpenSSL-Win64/libssl-3-x64.dll"
         "C:/Windows/System32/msvcp140.dll"
         "C:/Windows/System32/vcruntime140.dll"
-        DESTINATION ${CMAKE_BINARY_DIR}/bex-app
+        DESTINATION ${CMAKE_INSTALL_PREFIX}
     )
 else()
     get_target_property(ssl_location OpenSSL::SSL IMPORTED_LOCATION)
     get_filename_component(ssl_library ${ssl_location} REALPATH)
     install(
         FILES ${ssl_library}
-        DESTINATION ${CMAKE_BINARY_DIR}/bex-app
+        DESTINATION ${CMAKE_INSTALL_PREFIX}
     )
 endif()
