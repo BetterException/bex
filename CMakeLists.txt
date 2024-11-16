@@ -5,10 +5,11 @@ PROJECT(bex)
 
 SET(CMAKE_CXX_STANDARD 17)
 
-enable_testing()
-
-ADD_SUBDIRECTORY(deps/googletest)
-ADD_SUBDIRECTORY(test)
+if(BUILD_TESTING)
+    enable_testing()    
+    ADD_SUBDIRECTORY(deps/googletest)
+    ADD_SUBDIRECTORY(test)
+endif()
 
 SET(SRC
     "bex/main.cpp"
