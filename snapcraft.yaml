@@ -17,5 +17,8 @@ parts:
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
     build-packages:
+      - cmake
       - g++
       - libssl-dev
+    stage-packages:
+      - libssl1.1
