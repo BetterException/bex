@@ -12,10 +12,13 @@ architectures: [amd64, arm64]
 
 parts:
   bex:
-    source: https://github.com/BetterException/bex.git
+    source: https://github.com/BetterException/bex/archive/refs/tags/0.1.tar.gz
+    source-type: tar
     plugin: cmake
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DBUILD_TESTING=OFF
     build-packages:
       - cmake
       - g++
