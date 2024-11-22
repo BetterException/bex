@@ -4,6 +4,8 @@ base: core22
 version: git
 summary: Better EXception Handling
 description: Tool for a better exception handling
+grade: stable
+confinement: strict
 icon: images/logo.png
 license: CC0-1.0
 architectures: [amd64, arm64]
