@@ -1,0 +1,20 @@
+name: bex-cli
+title: bex
+base: core22
+version: git
+summary: Better EXception Handling
+description: Tool for a better exception handling
+icon: images/logo.png
+license: CC0-1.0
+architectures: [amd64]
+
+parts:
+  bex:
+    source: https://github.com/BetterException/bex.git
+    plugin: cmake
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+    build-packages:
+      - on amd64:
+          - g++
+          - libssl-dev
