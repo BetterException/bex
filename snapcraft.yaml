@@ -6,7 +6,7 @@ summary: Better EXception Handling
 description: Tool for a better exception handling
 icon: images/logo.png
 license: CC0-1.0
-architectures: [amd64]
+architectures: [amd64, arm64]
 
 parts:
   bex:
@@ -15,6 +15,5 @@ parts:
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
     build-packages:
-      - on amd64:
-          - g++
-          - libssl-dev
+      - g++
+      - libssl-dev
