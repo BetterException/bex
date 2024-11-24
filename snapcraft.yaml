@@ -16,7 +16,7 @@ parts:
     source-type: tar
     plugin: cmake
     cmake-parameters:
-      - -DCMAKE_INSTALL_PREFIX=/usr
+      - -DCMAKE_INSTALL_PREFIX=/usr/bin
       - -DCMAKE_BUILD_TYPE=Release
       - -DBUILD_TESTING=OFF
     build-packages:
