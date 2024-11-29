@@ -8,7 +8,9 @@ grade: stable
 confinement: strict
 icon: images/logo.png
 license: CC0-1.0
-architectures: [amd64, arm64]
+architectures:
+  - build-on: [amd64]
+  - build-for: [amd64, arm64]
 
 parts:
   bex:
@@ -21,5 +23,5 @@ parts:
       - -DBUILD_TESTING=OFF
     build-packages:
       - cmake
-      - g++
+      - g++-multilib
       - libssl-dev
