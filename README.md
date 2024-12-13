@@ -13,3 +13,9 @@ For MacOS
 brew tap BetterException/bex
 brew install bex
 ```
+
+For Linux
+
+```sh
+snap install bex-cli
+```
