@@ -33,8 +33,8 @@ install(
 if(WIN32)
     install(
         FILES
-        "C:/Program Files/OpenSSL/libcrypto-3-x64.dll"
-        "C:/Program Files/OpenSSL/libssl-3-x64.dll"
+        ${LIB_EAY_LIBRARY}
+        ${SSL_EAY_LIBRARY}
         "C:/Windows/System32/msvcp140.dll"
         "C:/Windows/System32/vcruntime140.dll"
         DESTINATION ${CMAKE_INSTALL_PREFIX}
