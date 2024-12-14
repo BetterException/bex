@@ -33,8 +33,8 @@ install(
 if(WIN32)
     install(
         FILES
-        ${LIB_EAY_LIBRARY}
-        ${SSL_EAY_LIBRARY}
+        ${LIB_EAY_RELEASE}
+        ${SSL_EAY_RELEASE}
         "C:/Windows/System32/msvcp140.dll"
         "C:/Windows/System32/vcruntime140.dll"
         DESTINATION ${CMAKE_INSTALL_PREFIX}
