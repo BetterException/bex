@@ -29,21 +29,3 @@ install(
     TARGETS ${PROJECT_NAME}
     DESTINATION ${CMAKE_INSTALL_PREFIX}
 )
-
-if(WIN32)
-    install(
-        FILES
-        "C:/Program Files/OpenSSL/bin/libcrypto-3-x64.dll"
-        "C:/Program Files/OpenSSL/bin/libssl-3-x64.dll"
-        "C:/Windows/System32/msvcp140.dll"
-        "C:/Windows/System32/vcruntime140.dll"
-        DESTINATION ${CMAKE_INSTALL_PREFIX}
-    )
-else()
-    get_target_property(ssl_location OpenSSL::SSL IMPORTED_LOCATION)
-    get_filename_component(ssl_library ${ssl_location} REALPATH)
-    install(
-        FILES ${ssl_library}
-        DESTINATION ${CMAKE_INSTALL_PREFIX}
-    )
-endif()
