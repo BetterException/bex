@@ -23,6 +23,11 @@ jobs:
         run: >
           cmake --build build --target install --config Release
 
+      - name: Listing the contents of OpenSSL dir (Debug)
+        run: |
+          ls "C:\Program Files\OpenSSL"
+          ls "C:\Program Files\OpenSSL\bin"
+
       - name: Finding the required dependencies
         run: |
           Copy-Item (Get-ChildItem -Path $env:ProgramFiles -Recurse -Filter '*.dll' -ErrorAction SilentlyContinue | Where-Object {$_.FullName -like '*libcrypto-3-x64*'} | Select-Object FullName).FullName -Destination './app'
