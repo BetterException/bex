@@ -30,8 +30,8 @@ jobs:
 
       - name: Finding the required dependencies
         run: |
-          Copy-Item (Get-ChildItem -Path $env:ProgramFiles -Recurse -Filter '*.dll' -ErrorAction SilentlyContinue | Where-Object {$_.FullName -like '*libcrypto-3-x64*'} | Select-Object FullName).FullName -Destination './app'
-          Copy-Item (Get-ChildItem -Path $env:ProgramFiles -Recurse -Filter '*.dll' -ErrorAction SilentlyContinue | Where-Object {$_.FullName -like '*libssl-3-x64*'} | Select-Object FullName).FullName -Destination './app'
+          Copy-Item (Get-ChildItem -Path $env:ProgramFiles -Recurse -Filter '*.dll' -ErrorAction SilentlyContinue | Where-Object {$_.FullName -like '*libcrypto-1_1-x64*'} | Select-Object FullName).FullName -Destination './app'
+          Copy-Item (Get-ChildItem -Path $env:ProgramFiles -Recurse -Filter '*.dll' -ErrorAction SilentlyContinue | Where-Object {$_.FullName -like '*libssl-1_1-x64*'} | Select-Object FullName).FullName -Destination './app'
           Copy-Item "C:\Windows\System32\msvcp140.dll" -Destination './app'
           Copy-Item "C:\Windows\System32\vcruntime140.dll" -Destination './app'
 
