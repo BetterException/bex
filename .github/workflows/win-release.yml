@@ -35,11 +35,8 @@ jobs:
           Copy-Item "C:\Windows\System32\msvcp140.dll" -Destination './app'
           Copy-Item "C:\Windows\System32\vcruntime140.dll" -Destination './app'
 
-      - name: Zipping the required files
-        run: >
-          Compress-Archive -Path ./app/* -DestinationPath "windows.zip"
-
       - uses: actions/upload-artifact@v4
         with:
-          name: win64
-          path: windows.zip
+          name: bex-win64
+          path: ./app/
+          compression-level: 9
