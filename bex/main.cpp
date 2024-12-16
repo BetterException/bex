@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "config.h"
+#include "constants.h"
 #include "run.h"
 
 int main(int argc, char* argv[]) {
@@ -19,6 +21,9 @@ int main(int argc, char* argv[]) {
     std::cout << "888  \"Y88b d8P  Y8b `Y8bd8P'\n";
     std::cout << "888    888 88888888   X88K\n";
     std::cout << "888   d88P Y8b.     .d8\"\"8b.\n";
+    std::cout << "8888888P\"   \"Y8888  888  888 v" +
+                     bex::constant::data["MAJOR_VERSION"] + "." +
+                     bex::constant::data["MINOR_VERSION"] + "\n";
   }
 #if __has_include("openssl/sha.h")
 #else

@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+#include "config.h"
+#include "constants.h"
 #include "generate.h"
 
 bool process(std::string path, bool createDummyFile) {
@@ -21,11 +23,25 @@ bool process(std::string path, bool createDummyFile) {
   std::replace(path.begin(), path.end(), '\\', '/');
 #endif
   std::vector<std::string> contents;
+  std::string delimiter =
+      bex::conf.getString("GLOBAL_EXCEPTION_VARIABLE_DELIM").has_value()
+          ? bex::conf.getString("GLOBAL_EXCEPTION_VARIABLE_DELIM").value()
+          : bex::constant::data["GLOBAL_EXCEPTION_VARIABLE_DELIM"];
+  std::string exceptionKeyword =
+      delimiter +
+      (bex::conf.getString("GLOBAL_EXCEPTION_VARIABLE").has_value()
+           ? bex::conf.getString("GLOBAL_EXCEPTION_VARIABLE").value()
+           : bex::constant::data["GLOBAL_EXCEPTION_VARIABLE"]) +
+      delimiter;
+  std::string dummyFilePrefix =
+      bex::conf.getString("DUMMY_FILE_PREFIX").has_value()
+          ? bex::conf.getString("DUMMY_FILE_PREFIX").value()
+          : bex::constant::data["DUMMY_FILE_PREFIX"];
   while (!file.eof()) {
     std::getline(file, line);
-    if (line.find("!%%globalException%%") == std::string::npos &&
-        line.find("%%globalException%%") != std::string::npos) {
-      size_t index = line.find("%%globalException%%");
+    if (line.find("!" + exceptionKeyword) == std::string::npos &&
+        line.find(exceptionKeyword) != std::string::npos) {
+      size_t index = line.find(exceptionKeyword);
       line.erase(index, 19);
       line.insert(index, sha256(path + "@" + std::to_string(lineNumber)));
       isModified = true;
@@ -38,7 +54,7 @@ bool process(std::string path, bool createDummyFile) {
   if (createDummyFile) {
     std::filesystem::path filePath(path);
     std::string originalFileName = filePath.filename().string();
-    filePath.replace_filename("dummy-" + originalFileName);
+    filePath.replace_filename(dummyFilePrefix + originalFileName);
     path = filePath.string();
   }
   std::ofstream writeFile(path);

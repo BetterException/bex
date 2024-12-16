@@ -5,12 +5,19 @@
 #include <iostream>
 #include <vector>
 
+#include "config.h"
+#include "constants.h"
 #include "process.h"
 
 void run(int argc, char *argv[], bool silent) {
   std::vector<std::future<bool>> futures;
   int filesModified = 0;
   std::string path = ".";
+  if (std::filesystem::exists(path + "/" + bex::constant::data["CONF_FILE"])) {
+    if (!bex::conf.load(path + "/" + bex::constant::data["CONF_FILE"])) {
+      bex::conf.clear();
+    }
+  }
   if (argc >= 2) {
     int index = 1;
     while (index < argc) {
@@ -25,13 +32,21 @@ void run(int argc, char *argv[], bool silent) {
           if (entry.is_directory()) continue;
           if (!entry.is_symlink() || !entry.is_socket()) {
             std::filesystem::path tempPath(entry);
-            futures.push_back(
-                std::async(process, tempPath.string(), createDummyFiles));
+            futures.push_back(std::async(
+                process, tempPath.string(),
+                bex::conf.getBool("CREATE_DUMMY_FILES").has_value()
+                    ? bex::conf.getBool("CREATE_DUMMY_FILES").value()
+                    : bex::config::strToBool(
+                          bex::constant::data["CREATE_DUMMY_FILES"])));
           }
         }
       } else {
         futures.push_back(
-            std::async(process, pPath.string(), createDummyFiles));
+            std::async(process, pPath.string(),
+                       bex::conf.getBool("CREATE_DUMMY_FILES").has_value()
+                           ? bex::conf.getBool("CREATE_DUMMY_FILES").value()
+                           : bex::config::strToBool(
+                                 bex::constant::data["CREATE_DUMMY_FILES"])));
       }
     }
   }
