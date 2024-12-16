@@ -9,6 +9,11 @@ if(BUILD_TESTING)
     enable_testing()    
     ADD_SUBDIRECTORY(deps/googletest)
     ADD_SUBDIRECTORY(test)
+    install(
+        FILES "deps/googletest/LICENSE"
+        DESTINATION ${CMAKE_INSTALL_PREFIX}
+        RENAME "googletest-LICENSE"
+    )
 endif()
 
 SET(SRC
@@ -27,5 +32,10 @@ TARGET_INCLUDE_DIRECTORIES(${PROJECT_NAME} PRIVATE "bex")
 
 install(
     TARGETS ${PROJECT_NAME}
+    DESTINATION ${CMAKE_INSTALL_PREFIX}
+)
+
+install(
+    FILES "LICENSE"
     DESTINATION ${CMAKE_INSTALL_PREFIX}
 )
