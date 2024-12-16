@@ -19,3 +19,9 @@ For Linux
 ```sh
 snap install bex-cli
 ```
+
+For Windows
+
+```ps
+choco install bex --version=0.1.0
+```
