@@ -7,7 +7,7 @@
 
 #include "process.h"
 
-void run(int argc, char *argv[], bool createDummyFiles) {
+void run(int argc, char *argv[], bool silent) {
   std::vector<std::future<bool>> futures;
   int filesModified = 0;
   std::string path = ".";
