@@ -40,3 +40,9 @@ jobs:
           name: bex-win64
           path: ./app/
           compression-level: 9
+
+      - name: Creating a release on Chocolatey
+        run: |
+          choco pack ./dist/windows/bex.nuspec
+          choco apiKey -k ${{ secrets.CHOCO_TOKEN }} -source https://push.chocolatey.org/
+          choco push ./bex-0.1.nuspec

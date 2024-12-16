@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>bex</id>
+    <version>0.1</version>
+    <packageSourceUrl>https://github.com/BetterException/bex/tree/main/dist/windows</packageSourceUrl>
+    <!-- owners is a poor name for maintainers of the package. It sticks around by this name for compatibility reasons. It basically means you. -->
+    <owners>BetterException</owners>
+    <!-- ============================== -->
+
+    <!-- == SOFTWARE SPECIFIC SECTION == -->
+    <!-- This section is about the software itself -->
+    <title>bex</title>
+    <authors>GhostVaibhav</authors>
+    <projectUrl>https://github.com/BetterException/bex</projectUrl>
+    <licenseUrl>https://github.com/BetterException/bex/blob/main/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <tags>bex</tags>
+    <summary>bex helps in handling exceptions in a better way.</summary>
+    <description>bex helps in handling the exceptions in a better way through automatically generating ID's to them during the pre-commit step.
+    </description>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+    <!--Building from Linux? You may need this instead: <file src="tools/**" target="tools" />-->
+  </files>
+</package>
