@@ -42,11 +42,13 @@ void run(int argc, char *argv[], bool createDummyFiles) {
     }
   }
 
-  if (filesModified == 0) {
-    std::cout << "No files modified" << std::endl;
-  } else if (filesModified == 1) {
-    std::cout << filesModified << " file modified" << std::endl;
-  } else if (filesModified > 1) {
-    std::cout << filesModified << " files modified" << std::endl;
+  if (!silent) {
+    if (filesModified == 0) {
+      std::cout << "No files modified" << std::endl;
+    } else if (filesModified == 1) {
+      std::cout << filesModified << " file modified" << std::endl;
+    } else {
+      std::cout << filesModified << " files modified" << std::endl;
+    }
   }
 }

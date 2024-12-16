@@ -1,0 +1,8 @@
+- id: bex
+  name: bex
+  description: This hook handles exception in a better way.
+  entry: bex
+  language: system
+  always_run: true
+  fail_fast: true
+  args: [--silent]

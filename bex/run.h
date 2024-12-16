@@ -1,3 +1,3 @@
 #pragma once
 
-void run(int, char *[], bool createDummyFiles = false);
+void run(int, char *[], bool);
