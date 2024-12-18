@@ -22,7 +22,7 @@ TEST(CPPTests, SingleException) {
   std::fstream file("../../test/files/cpp/dummy-testFile1.cpp");
   std::string tempLine = GotoLine(file, 7);
   ASSERT_EQ(tempLine.substr(36, 64),
-            "67960670761c4938b8f1a807936e9976e2c16f266acb532515d605df38cab37a");
+            "39d6d272b157e60a7d6a8952b2ff1788c83376a5a396dac949398287e1bfab7d");
   file.close();
 }
 
@@ -32,10 +32,10 @@ TEST(CPPTests, MultiException) {
   std::fstream file("../../test/files/cpp/dummy-testFile2.cpp");
   std::string tempLine = GotoLine(file, 7);
   ASSERT_EQ(tempLine.substr(36, 64),
-            "ed41753c80312e80c9fde08d86fd31e559a0aa3d7d9cc1d857131f2861437ce6");
+            "6e910ea241dd5995311086a6ac4bd48e807be59b4d9c542a6880776170823fa6");
   tempLine = GotoLine(file, 9);
   ASSERT_EQ(tempLine.substr(31, 64),
-            "1419eba631a850b8a7f0150ae7fc9e508cf2759d6332439528055f2d0c010d21");
+            "da6f683a09ce689d0d29a3a75ee593fdee26b81727f01e24ab8a0a6a28c92a36");
   file.close();
 }
 
@@ -47,21 +47,33 @@ TEST(CPPTests, FolderException) {
   std::fstream file("../../test/folders/cpp/testFolder1/dummy-main.cpp");
   std::string tempLine = GotoLine(file, 4);
   ASSERT_EQ(tempLine.substr(26, 64),
-            "179193b9b14f97e4491a316dc82888d4b4ccdc20228f2524f565b17e41e9460b");
+            "158e9ab18d91992b73bb564976bb528e63451053482c30ba3915549d84ebadee");
   file.close();
   file.open("../../test/folders/cpp/testFolder1/test/dummy-test.cpp");
   tempLine = GotoLine(file, 6);
   ASSERT_EQ(tempLine.substr(30, 64),
-            "d40b8d6251d90deeedb5d7bc594e4c338945ef19c779b28d0abd3e640aa89c09");
+            "1972e4d0f3de2ddf76ddeb3e8cdf3009391d06eba0cf7ab705707827fc87ab03");
   file.close();
   file.open("../../test/folders/cpp/testFolder1/utils/dummy-copy.cpp");
   tempLine = GotoLine(file, 8);
   ASSERT_EQ(tempLine.substr(44, 64),
-            "363f112d34295088860bd39dca8e4973b7cc585a08e36188cd5a4f1001737d66");
+            "d539e0d36ff01a0ee1723d968c09d9f218388bfddc10d87781d242cb2d35ea40");
   file.close();
   file.open("../../test/folders/cpp/testFolder1/utils/dummy-multiply.cpp");
   tempLine = GotoLine(file, 6);
   ASSERT_EQ(tempLine.substr(46, 64),
-            "cdc40a9364ae622e2162cdfb76abccdc3e198a2289d95b81306de9eebb99670b");
+            "9e5c8c1b396674038d9dd40f360ceb431233ee5fd13b785104c12b07294da528");
+  file.close();
+}
+
+TEST(CPPTests, ConfigFolderTest) {
+  char *first = strdup("bex");
+  char *second = strdup("../../test/folders/cpp/testFolder2/");
+  char *args[] = {first, second};
+  run(2, args, true);
+  std::fstream file("../../test/folders/cpp/testFolder2/utils/extra-copy.hpp");
+  std::string tempLine = GotoLine(file, 12);
+  ASSERT_EQ(tempLine.substr(57, 64),
+            "6e3dd7b011cdcbd5bf5bbaf9898450f8235cb8aafb889daf30ee2534ca616b8d");
   file.close();
 }

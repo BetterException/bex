@@ -13,11 +13,6 @@ void run(int argc, char *argv[], bool silent) {
   std::vector<std::future<bool>> futures;
   int filesModified = 0;
   std::string path = ".";
-  if (std::filesystem::exists(path + "/" + bex::constant::data["CONF_FILE"])) {
-    if (!bex::conf.load(path + "/" + bex::constant::data["CONF_FILE"])) {
-      bex::conf.clear();
-    }
-  }
   if (argc >= 2) {
     int index = 1;
     while (index < argc) {
@@ -27,6 +22,13 @@ void run(int argc, char *argv[], bool silent) {
         pPath = pPath.relative_path();
       }
       if (std::filesystem::is_directory(pPath)) {
+        if (std::filesystem::exists(pPath.string() + "/" +
+                                    bex::constant::data["CONF_FILE"])) {
+          if (!conf.load(pPath.string() + "/" +
+                         bex::constant::data["CONF_FILE"])) {
+            conf.clear();
+          }
+        }
         for (const auto &entry :
              std::filesystem::recursive_directory_iterator(pPath)) {
           if (entry.is_directory()) continue;
@@ -34,8 +36,8 @@ void run(int argc, char *argv[], bool silent) {
             std::filesystem::path tempPath(entry);
             futures.push_back(std::async(
                 process, tempPath.string(),
-                bex::conf.getBool("CREATE_DUMMY_FILES").has_value()
-                    ? bex::conf.getBool("CREATE_DUMMY_FILES").value()
+                conf.getBool("CREATE_DUMMY_FILES").has_value()
+                    ? conf.getBool("CREATE_DUMMY_FILES").value()
                     : bex::config::strToBool(
                           bex::constant::data["CREATE_DUMMY_FILES"])));
           }
@@ -43,8 +45,8 @@ void run(int argc, char *argv[], bool silent) {
       } else {
         futures.push_back(
             std::async(process, pPath.string(),
-                       bex::conf.getBool("CREATE_DUMMY_FILES").has_value()
-                           ? bex::conf.getBool("CREATE_DUMMY_FILES").value()
+                       conf.getBool("CREATE_DUMMY_FILES").has_value()
+                           ? conf.getBool("CREATE_DUMMY_FILES").value()
                            : bex::config::strToBool(
                                  bex::constant::data["CREATE_DUMMY_FILES"])));
       }

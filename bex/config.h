@@ -1,3 +1,6 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
 #include <algorithm>
 #include <fstream>
 #include <optional>
@@ -30,9 +33,16 @@ class config {
     }
     return true;
   }
+  std::string toString() {
+    std::string result;
+    for (const auto& [key, value] : data) {
+      result += (key + ": " + value + "\n");
+    }
+    return result;
+  }
   void clear() { data.clear(); }
   std::optional<std::string> getString(std::string _property) {
-    return data[_property].empty()
+    return data.find(_property) == data.end()
                ? static_cast<std::optional<std::string>>(std::nullopt)
                : data[_property];
   }
@@ -73,6 +83,8 @@ class config {
   }
 };
 
-static config conf;
-
 }  // namespace bex
+
+extern bex::config conf;
+
+#endif

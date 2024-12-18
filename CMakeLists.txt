@@ -23,14 +23,15 @@ SET(SRC
     "bex/process.cpp"
     "bex/generate.cpp"
     "bex/run.cpp"
+    "bex/config.cpp"
 )
 
 ADD_EXECUTABLE(${PROJECT_NAME} ${SRC})
 
 find_package(OpenSSL REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE OpenSSL::SSL)
+target_include_directories(${PROJECT_NAME} PRIVATE "bex")
 
-TARGET_INCLUDE_DIRECTORIES(${PROJECT_NAME} PRIVATE "bex")
 configure_file("${CMAKE_SOURCE_DIR}/bex/version.h.in" "${CMAKE_SOURCE_DIR}/bex/version.h")
 
 install(

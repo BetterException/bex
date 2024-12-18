@@ -24,26 +24,27 @@ bool process(std::string path, bool createDummyFile) {
 #endif
   std::vector<std::string> contents;
   std::string delimiter =
-      bex::conf.getString("GLOBAL_EXCEPTION_VARIABLE_DELIM").has_value()
-          ? bex::conf.getString("GLOBAL_EXCEPTION_VARIABLE_DELIM").value()
+      conf.getString("GLOBAL_EXCEPTION_VARIABLE_DELIM").has_value()
+          ? conf.getString("GLOBAL_EXCEPTION_VARIABLE_DELIM").value()
           : bex::constant::data["GLOBAL_EXCEPTION_VARIABLE_DELIM"];
   std::string exceptionKeyword =
       delimiter +
-      (bex::conf.getString("GLOBAL_EXCEPTION_VARIABLE").has_value()
-           ? bex::conf.getString("GLOBAL_EXCEPTION_VARIABLE").value()
+      (conf.getString("GLOBAL_EXCEPTION_VARIABLE").has_value()
+           ? conf.getString("GLOBAL_EXCEPTION_VARIABLE").value()
            : bex::constant::data["GLOBAL_EXCEPTION_VARIABLE"]) +
       delimiter;
   std::string dummyFilePrefix =
-      bex::conf.getString("DUMMY_FILE_PREFIX").has_value()
-          ? bex::conf.getString("DUMMY_FILE_PREFIX").value()
+      conf.getString("DUMMY_FILE_PREFIX").has_value()
+          ? conf.getString("DUMMY_FILE_PREFIX").value()
           : bex::constant::data["DUMMY_FILE_PREFIX"];
   while (!file.eof()) {
     std::getline(file, line);
     if (line.find("!" + exceptionKeyword) == std::string::npos &&
         line.find(exceptionKeyword) != std::string::npos) {
-      size_t index = line.find(exceptionKeyword);
-      line.erase(index, 19);
-      line.insert(index, sha256(path + "@" + std::to_string(lineNumber)));
+      size_t colNumber = line.find(exceptionKeyword);
+      line.erase(colNumber, exceptionKeyword.size());
+      line.insert(colNumber, sha256(path + "@" + std::to_string(lineNumber) +
+                                    "|" + std::to_string(colNumber)));
       isModified = true;
     }
     contents.push_back(line);
