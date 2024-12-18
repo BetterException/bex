@@ -2,6 +2,9 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,c++,visualstudio,clion,cmake
 
 ### C++ ###
+# Version files
+version.h
+
 # Prerequisites
 *.d
 

@@ -1,21 +1,20 @@
 #include <string>
 #include <unordered_map>
 
+#include "version.h"
+
 namespace bex {
 
 namespace constant {
 
 static std::unordered_map<std::string, std::string> data{
     {"CONF_FILE", "bex.conf"},
-    {"MAJOR_VERSION", "0"},
-    {"MINOR_VERSION", "1"},
+    {"MAJOR_VERSION", std::to_string(BEX_MAJOR_VERSION)},
+    {"MINOR_VERSION", std::to_string(BEX_MINOR_VERSION)},
     {"GLOBAL_EXCEPTION_VARIABLE", "globalException"},
     {"GLOBAL_EXCEPTION_VARIABLE_DELIM", "%%"},
     {"DUMMY_FILE_PREFIX", "dummy-"},
-    {"CREATE_DUMMY_FILES", "TRUE"},
-    {"NO_GIT_FOUND",
-     "Git is not initialized for this directory, initialize it using git "
-     "init"}};
+    {"CREATE_DUMMY_FILES", "TRUE"}};
 
 }  // namespace constant
 
