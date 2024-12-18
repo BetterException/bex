@@ -1,15 +1,15 @@
-## Files to touch upon release
+## Files to touch before release
 
 - `CMakeLists.txt`
 - `snapcraft.yaml`
 - `dist/windows/bex.nuspec`
 - `dist/windows/tools/chocolateyInstall.ps1`
 
-## External files to touch upon release
+## External files to touch after release
 
 - [`homebrew-bex/bex.rb`](https://github.com/BetterException/homebrew-bex/blob/main/bex.rb)
 
-## Tasks to perform upon release
+## Tasks to perform on release
 
 - Build and create the release through API endpoint on a Windows machine, sorting the Choco release
 - In the second pipeline, trigger the remote build for the Snap release
