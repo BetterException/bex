@@ -3,8 +3,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  release:
+  win-release:
     runs-on: windows-latest
+    outputs:
+      artifact-url: ${{ steps.artifact-upload-windows.outputs.artifact-url }}
+      artifact-sha: ${{ steps.artifact-upload-windows.outputs.artifact-digest }}
 
     steps:
       - uses: actions/checkout@v4
@@ -36,13 +39,19 @@ jobs:
           Copy-Item "C:\Windows\System32\vcruntime140.dll" -Destination './app'
 
       - uses: actions/upload-artifact@v4
+        id: artifact-upload-windows
         with:
           name: bex-win64
           path: ./app/
           compression-level: 9
 
-      - name: Creating a release on Chocolatey
+      - name: Changing the chocolateyInstall file
         run: |
-          choco pack ./dist/windows/bex.nuspec
-          choco apiKey -k ${{ secrets.CHOCO_TOKEN }} -source https://push.chocolatey.org/
-          choco push --source https://push.chocolatey.org/
+          sed -i '7s/.*/$hash = '${{ needs.win-release.outputs.artifact-sha }}'/' ./dist/windows/tools/chocolateyInstall.ps1
+          get-content ./dist/windows/tools/chocolateyInstall.ps1
+
+      # - name: Creating a release on Chocolatey
+      #   run: |
+      #     choco pack ./dist/windows/bex.nuspec
+      #     choco apiKey -k ${{ secrets.CHOCO_TOKEN }} -source https://push.chocolatey.org/
+      #     choco push --source https://push.chocolatey.org/
