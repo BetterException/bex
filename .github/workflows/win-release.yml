@@ -7,7 +7,6 @@ jobs:
     runs-on: windows-latest
     outputs:
       artifact-url: ${{ steps.artifact-upload-windows.outputs.artifact-url }}
-      artifact-sha: ${{ steps.artifact-upload-windows.outputs.artifact-digest }}
 
     steps:
       - uses: actions/checkout@v4
@@ -46,8 +45,10 @@ jobs:
           compression-level: 9
 
       - name: Changing the chocolateyInstall file
+        env:
+          hash: ${{ steps.artifact-upload-windows.outputs.artifact-digest }}
         run: |
-          sed -i '7s/.*/$hash = "${{ needs.artifact-sha }}"/' ./dist/windows/tools/chocolateyInstall.ps1
+          sed -i '7s/.*/$hash = "${{ env.hash }}"/' ./dist/windows/tools/chocolateyInstall.ps1
           get-content ./dist/windows/tools/chocolateyInstall.ps1
 
       # - name: Creating a release on Chocolatey
