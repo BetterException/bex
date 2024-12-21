@@ -47,7 +47,7 @@ jobs:
 
       - name: Changing the chocolateyInstall file
         run: |
-          sed -i '7s/.*/$hash = '${{ needs.win-release.outputs.artifact-sha }}'/' ./dist/windows/tools/chocolateyInstall.ps1
+          sed -i '7s/.*/$hash = "${{ needs.artifact-sha }}"/' ./dist/windows/tools/chocolateyInstall.ps1
           get-content ./dist/windows/tools/chocolateyInstall.ps1
 
       # - name: Creating a release on Chocolatey
