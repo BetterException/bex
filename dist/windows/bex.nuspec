@@ -3,6 +3,7 @@
   <metadata>
     <id>bex</id>
     <version>0.1</version>
+    <iconUrl>https://raw.githubusercontent.com/BetterException/bex/refs/heads/main/images/logo.png</iconUrl>
     <packageSourceUrl>https://github.com/BetterException/bex/tree/main/dist/windows</packageSourceUrl>
     <!-- owners is a poor name for maintainers of the package. It sticks around by this name for compatibility reasons. It basically means you. -->
     <owners>BetterException</owners>
@@ -10,9 +11,10 @@
 
     <!-- == SOFTWARE SPECIFIC SECTION == -->
     <!-- This section is about the software itself -->
-    <title>bex</title>
+    <title>Better EXception</title>
     <authors>GhostVaibhav</authors>
     <projectUrl>https://github.com/BetterException/bex</projectUrl>
+    <projectSourceUrl>https://github.com/BetterException/bex</projectSourceUrl>
     <licenseUrl>https://github.com/BetterException/bex/blob/main/LICENSE</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <tags>bex</tags>
