@@ -89,6 +89,15 @@ jobs:
           ls
           ls ./app
 
+      - name: Creating a release on GitHub
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./bex-win64.zip
+          token: ${{ secrets.GH_RELEASE_TOKEN }}
+          tag_name: ${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}
+          draft: false
+          prerelease: false
+
       - name: Committing the changes for all the modified files
         run: |
           Remove-Item -Recurse -Force -Path "./app"
@@ -98,15 +107,6 @@ jobs:
           git add .
           git commit -m "Release: ${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}"
           git push
-
-      - name: Creating a release on GitHub
-        uses: softprops/action-gh-release@v1
-        with:
-          files: ./bex-win64.zip
-          token: ${{ secrets.GH_RELEASE_TOKEN }}
-          tag_name: ${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}
-          draft: false
-          prerelease: false
 
       - name: Creating a release on Chocolatey
         run: |
@@ -126,12 +126,13 @@ jobs:
 
       - name: Download the release
         run: |
-          curl --insecure "https://github.com/BetterException/bex/archive/refs/tags/${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz" -o "${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz"
+          curl -L --insecure "https://github.com/BetterException/bex/archive/refs/tags/${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz" -o "${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz"
 
       - name: Changing the required files for the release
         run: |
           sed -i '4s/.*/  url "https:\/\/github.com\/BetterException\/bex\/archive\/refs\/tags\/${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz"/' ./bex.rb
-          HASH=$(sha256sum "${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz" | cut -d ' ' -f 1) bash -c "sed -i '5s/.*/  sha256 "$HASH"/' ./bex.rb"
+          export HASH=$(sha256sum "${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz" | cut -d ' ' -f 1)
+          sed -i '' -e "5s/.*/  sha256 "$HASH"/" ./bex.rb
 
       - name: Removing the downloaded release
         run: |
