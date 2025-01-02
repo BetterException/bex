@@ -1,4 +1,4 @@
-name: Release on Windows platform
+name: Release
 on:
   workflow_dispatch:
     inputs:
