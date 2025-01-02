@@ -132,7 +132,7 @@ jobs:
         run: |
           sed -i '4s/.*/  url "https:\/\/github.com\/BetterException\/bex\/archive\/refs\/tags\/${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz"/' ./bex.rb
           export HASH=$(sha256sum "${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz" | cut -d ' ' -f 1)
-          sed -i "5s/.*/  sha256 ""$HASH""/" ./bex.rb
+          sed -i "5s/.*/  sha256 "'$HASH'"/" ./bex.rb
 
       - name: Removing the downloaded release
         run: |
