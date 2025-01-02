@@ -4,7 +4,7 @@ $packageName= 'bex'
 $version = "0.2"
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 $url        = "https://github.com/BetterException/bex/releases/download/$version/bex-win64.zip"
-$hash = "64358e3ea77709893e887034bd0b1c3a3069996182b2a40d00f7fc4562667396"
+$hash = "e45ed5be9a497d62249b0d8ef6429c3d824a9f9dc4a77e0e263ddcab3f57b9a6"
 
 $packageArgs = @{
   packageName   = $packageName
