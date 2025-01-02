@@ -26,15 +26,19 @@ jobs:
         run: |
           sed -i '4s/.*/$version = "${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}"/' ./dist/windows/tools/chocolateyInstall.ps1
           sed -i '5s/.*/    <version>${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}<\/version>/' ./dist/windows/bex.nuspec
-          sed -i '19s/.*/    source: https://github.com/BetterException/bex/archive/refs/tags/${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz/' ./snapcraft.yaml
+          sed -i '19s/.*/    source: https:\/\/github.com/BetterException\/bex\/archive\/refs\/tags\/${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz/' ./snapcraft.yaml
           sed -i '7s/.*/SET(BEX_MAJOR_VERSION ${{ github.event.inputs.major_version }} CACHE STRING "Major Version")/' ./CMakeLists.txt
           sed -i '8s/.*/SET(BEX_MINOR_VERSION ${{ github.event.inputs.minor_version }} CACHE STRING "Minor Version")/' ./CMakeLists.txt
           sed -i '3s/.*/    rev: "${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}"/' ./.pre-commit-config.yaml
 
           get-content ./dist/windows/tools/chocolateyInstall.ps1
+          echo "`n"
           get-content ./dist/windows/bex.nuspec
+          echo "`n"
           get-content ./snapcraft.yaml
+          echo "`n"
           get-content ./CMakeLists.txt
+          echo "`n"
           get-content ./.pre-commit-config.yaml
 
       - name: Building with CMake
@@ -71,8 +75,10 @@ jobs:
       - name: Changing the hash in chocolateyInstall.ps1 file
         env:
           hash: ${{ steps.artifact-upload-windows.outputs.artifact-digest }}
+          url: ${{ steps.artifact-upload-windows.outputs.artifact-url }}
         run: |
           sed -i '7s/.*/$hash = "${{ env.hash }}"/' ./dist/windows/tools/chocolateyInstall.ps1
+          Invoke-WebRequest ${{ env.url }} -OutFile .\bex-win64.zip
 
       - name: Listing the directory contents (Debug)
         run: |
@@ -90,7 +96,7 @@ jobs:
   #     - name: Creating a release on GitHub
   #       uses: softprops/action-gh-release@v1
   #       with:
-  #         files: ./app/bex-win64.zip
+  #         files: ./bex-win64.zip
   #         token: ${{ secrets.GH_RELEASE_TOKEN }}
   #         tag_name: ${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}
   #         draft: false
