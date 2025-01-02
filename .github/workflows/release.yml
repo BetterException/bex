@@ -75,10 +75,14 @@ jobs:
       - name: Changing the hash in chocolateyInstall.ps1 file
         env:
           hash: ${{ steps.artifact-upload-windows.outputs.artifact-digest }}
-          url: ${{ steps.artifact-upload-windows.outputs.artifact-url }}
+          id: ${{ steps.artifact-upload-windows.outputs.artifact-id }}
         run: |
           sed -i '7s/.*/$hash = "${{ env.hash }}"/' ./dist/windows/tools/chocolateyInstall.ps1
-          Invoke-WebRequest ${{ env.url }} -OutFile .\bex-win64.zip
+          curl -L \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ secrets.GH_RELEASE_TOKEN }}" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          https://api.github.com/repos/BetterException/bex/actions/artifacts/${{ env.id }}
 
       - name: Listing the directory contents (Debug)
         run: |
