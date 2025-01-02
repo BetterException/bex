@@ -25,7 +25,7 @@ jobs:
       - name: Changing the required files for the release
         run: |
           sed -i '4s/.*/$version = "${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}"/' ./dist/windows/tools/chocolateyInstall.ps1
-          sed -i '5s/.*/    <version>${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}</version>/' ./dist/windows/bex.nuspec
+          sed -i '5s/.*/    <version>${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}<\/version>/' ./dist/windows/bex.nuspec
           sed -i '19s/.*/    source: https://github.com/BetterException/bex/archive/refs/tags/${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz/' ./snapcraft.yaml
           sed -i '7s/.*/SET(BEX_MAJOR_VERSION ${{ github.event.inputs.major_version }} CACHE STRING "Major Version")/' ./CMakeLists.txt
           sed -i '8s/.*/SET(BEX_MINOR_VERSION ${{ github.event.inputs.minor_version }} CACHE STRING "Minor Version")/' ./CMakeLists.txt
@@ -81,7 +81,7 @@ jobs:
       - name: Creating a release on GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: ./bex-win64.zip
+          files: ./app/bex-win64.zip
           token: ${{ secrets.GH_RELEASE_TOKEN }}
           tag_name: ${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}
           draft: false
