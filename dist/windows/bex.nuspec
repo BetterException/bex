@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>bex</id>
-    <version>0.1</version>
+    <version>0.2</version>
     <iconUrl>https://raw.githubusercontent.com/BetterException/bex/refs/heads/main/images/logo.png</iconUrl>
     <packageSourceUrl>https://github.com/BetterException/bex/tree/main/dist/windows</packageSourceUrl>
     <!-- owners is a poor name for maintainers of the package. It sticks around by this name for compatibility reasons. It basically means you. -->
