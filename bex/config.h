@@ -11,13 +11,14 @@
 namespace bex {
 
 class config {
- private:
+private:
   std::unordered_map<std::string, std::string> data;
 
- public:
+public:
   bool load(std::string _file) {
     std::ifstream configFile(_file);
-    if (!configFile.is_open()) return false;
+    if (!configFile.is_open())
+      return false;
     std::string line = "";
     while (std::getline(configFile, line)) {
       int sepInd = line.find("=");
@@ -35,7 +36,7 @@ class config {
   }
   std::string toString() {
     std::string result;
-    for (const auto& [key, value] : data) {
+    for (const auto &[key, value] : data) {
       result += (key + ": " + value + "\n");
     }
     return result;
@@ -49,14 +50,14 @@ class config {
   std::optional<int> getInt(std::string _property) {
     try {
       return std::stoi(data[_property]);
-    } catch (std::exception& e) {
+    } catch (std::exception &e) {
       return std::nullopt;
     }
   }
   std::optional<long> getLong(std::string _property) {
     try {
       return std::stol(data[_property]);
-    } catch (std::exception& e) {
+    } catch (std::exception &e) {
       return std::nullopt;
     }
   }
@@ -83,7 +84,7 @@ class config {
   }
 };
 
-}  // namespace bex
+} // namespace bex
 
 extern bex::config conf;
 

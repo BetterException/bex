@@ -1,4 +1,3 @@
-#include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -6,7 +5,7 @@
 #include "constants.h"
 #include "run.h"
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
   std::vector<std::string> args;
   for (int i = 0; i < argc; ++i) {
     args.push_back(argv[i]);

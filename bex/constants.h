@@ -14,8 +14,8 @@ static std::unordered_map<std::string, std::string> data{
     {"GLOBAL_EXCEPTION_VARIABLE", "globalException"},
     {"GLOBAL_EXCEPTION_VARIABLE_DELIM", "%%"},
     {"DUMMY_FILE_PREFIX", "dummy-"},
-    {"CREATE_DUMMY_FILES", "TRUE"}};
+    {"CREATE_DUMMY_FILES", "FALSE"}};
 
-}  // namespace constant
+} // namespace constant
 
-}  // namespace bex
+} // namespace bex

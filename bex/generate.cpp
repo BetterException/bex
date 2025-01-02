@@ -7,9 +7,9 @@
 
 #include "openssl/sha.h"
 
-std::string sha256(const std::string& inputStr) {
+std::string sha256(const std::string &inputStr) {
   unsigned char hash[SHA256_DIGEST_LENGTH];
-  const unsigned char* data = (const unsigned char*)inputStr.c_str();
+  const unsigned char *data = (const unsigned char *)inputStr.c_str();
   SHA256(data, inputStr.size(), hash);
   std::stringstream ss;
   for (int i = 0; i < SHA256_DIGEST_LENGTH; i++) {

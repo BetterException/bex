@@ -1,5 +1,5 @@
 #pragma once
 
-#include <iostream>
+#include <string>
 
 std::string sha256(const std::string &);

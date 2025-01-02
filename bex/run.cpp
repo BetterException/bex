@@ -31,7 +31,8 @@ void run(int argc, char *argv[], bool silent) {
         }
         for (const auto &entry :
              std::filesystem::recursive_directory_iterator(pPath)) {
-          if (entry.is_directory()) continue;
+          if (entry.is_directory())
+            continue;
           if (!entry.is_symlink() || !entry.is_socket()) {
             std::filesystem::path tempPath(entry);
             futures.push_back(std::async(
