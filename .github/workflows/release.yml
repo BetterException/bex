@@ -81,7 +81,7 @@ jobs:
       - name: Creating a release on GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: ./app/bex-win64.zip
+          files: ./bex-win64.zip
           token: ${{ secrets.GH_RELEASE_TOKEN }}
           tag_name: ${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}
           draft: false
