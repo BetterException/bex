@@ -89,52 +89,52 @@ jobs:
           ls
           ls ./app
 
-      # - name: Committing the changes for all the modified files
-      #   run: |
-      #     git config --global user.email "48472541+GhostVaibhav@users.noreply.github.com"
-      #     git config --global user.name "GhostVaibhav"
-      #     git add .
-      #     git commit -m "Release: ${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}"
-      #     git push
+      - name: Committing the changes for all the modified files
+        run: |
+          git config --global user.email "48472541+GhostVaibhav@users.noreply.github.com"
+          git config --global user.name "GhostVaibhav"
+          git add .
+          git commit -m "Release: ${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}"
+          git push
 
-  #     - name: Creating a release on GitHub
-  #       uses: softprops/action-gh-release@v1
-  #       with:
-  #         files: ./bex-win64.zip
-  #         token: ${{ secrets.GH_RELEASE_TOKEN }}
-  #         tag_name: ${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}
-  #         draft: false
-  #         prerelease: false
+      - name: Creating a release on GitHub
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./bex-win64.zip
+          token: ${{ secrets.GH_RELEASE_TOKEN }}
+          tag_name: ${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}
+          draft: false
+          prerelease: false
 
-  #     - name: Creating a release on Chocolatey
-  #       run: |
-  #         choco pack ./dist/windows/bex.nuspec
-  #         choco apiKey -k ${{ secrets.CHOCO_TOKEN }} -source https://push.chocolatey.org/
-  #         choco push --source https://push.chocolatey.org/
+      - name: Creating a release on Chocolatey
+        run: |
+          choco pack ./dist/windows/bex.nuspec
+          choco apiKey -k ${{ secrets.CHOCO_TOKEN }} -source https://push.chocolatey.org/
+          choco push --source https://push.chocolatey.org/
 
-  # homebrew-release:
-  #   needs: windows-release
-  #   runs-on: ubuntu-latest
+  homebrew-release:
+    needs: windows-release
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         repository: "BetterException/homebrew-bex"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: "BetterException/homebrew-bex"
 
-  #     - name: Download the release
-  #       run: |
-  #         curl --insecure "https://github.com/BetterException/bex/archive/refs/tags/${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz" --output "${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz"
+      - name: Download the release
+        run: |
+          curl --insecure "https://github.com/BetterException/bex/archive/refs/tags/${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz" -o "${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz"
 
-  #     - name: Changing the required files for the release
-  #       run: |
-  #         export HASH=$(sha256sum "${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz" | cut -d ' ' -f 1)
-  #         sed -i '4s/.*/url "https://github.com/BetterException/bex/archive/refs/tags/${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz"/' ./bex.rb
-  #         sed -i '5s/.*/sha256 "$HASH"/' ./bex.rb
+      - name: Changing the required files for the release
+        run: |
+          export HASH=$(sha256sum "${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz" | cut -d ' ' -f 1)
+          sed -i '4s/.*/url "https:\/\/github.com\/BetterException\/bex\/archive\/refs\/tags\/${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}.tar.gz"/' ./bex.rb
+          sed -i '5s/.*/sha256 "$HASH"/' ./bex.rb
 
-  #     - name: Committing the changes for all the modified files
-  #       run: |
-  #         git config --global user.email "
-  #         git config --global user.name "GhostVaibhav"
-  #         git add .
-  #         git commit -m "Release: ${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}"
-  #         git push
+      - name: Committing the changes for all the modified files
+        run: |
+          git config --global user.email "48472541+GhostVaibhav@users.noreply.github.com"
+          git config --global user.name "GhostVaibhav"
+          git add .
+          git commit -m "Release: ${{ github.event.inputs.major_version }}.${{ github.event.inputs.minor_version }}"
+          git push
