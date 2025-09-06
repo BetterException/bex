@@ -1,5 +1,4 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include <algorithm>
 #include <fstream>
@@ -15,13 +14,13 @@ private:
   std::unordered_map<std::string, std::string> data;
 
 public:
-  bool load(std::string _file) {
+  bool load(const std::string& _file) {
     std::ifstream configFile(_file);
     if (!configFile.is_open())
       return false;
-    std::string line = "";
+    std::string line;
     while (std::getline(configFile, line)) {
-      int sepInd = line.find("=");
+      unsigned long sepInd = line.find('=');
       std::string propName = line.substr(0, sepInd);
       std::string propValue = line.substr(sepInd + 1);
       if (propValue.front() == '\"') {
@@ -37,31 +36,34 @@ public:
   std::string toString() {
     std::string result;
     for (const auto &[key, value] : data) {
-      result += (key + ": " + value + "\n");
+      result.append(key);
+      result.append(": ");
+      result.append(value);
+      result.append("\n");
     }
     return result;
   }
   void clear() { data.clear(); }
-  std::optional<std::string> getString(std::string _property) {
+  std::optional<std::string> getString(const std::string& _property) {
     return data.find(_property) == data.end()
                ? static_cast<std::optional<std::string>>(std::nullopt)
                : data[_property];
   }
-  std::optional<int> getInt(std::string _property) {
+  std::optional<int> getInt(const std::string& _property) {
     try {
       return std::stoi(data[_property]);
-    } catch (std::exception &e) {
+    } catch ([[maybe_unused]] std::exception &e) {
       return std::nullopt;
     }
   }
-  std::optional<long> getLong(std::string _property) {
+  std::optional<long> getLong(const std::string& _property) {
     try {
       return std::stol(data[_property]);
-    } catch (std::exception &e) {
+    } catch ([[maybe_unused]] std::exception &e) {
       return std::nullopt;
     }
   }
-  std::optional<bool> getBool(std::string _property) {
+  std::optional<bool> getBool(const std::string& _property) {
     auto stringResult = getString(_property);
     if (stringResult.has_value()) {
       std::transform(stringResult.value().begin(), stringResult.value().end(),
@@ -87,5 +89,3 @@ public:
 } // namespace bex
 
 extern bex::config conf;
-
-#endif

@@ -16,7 +16,7 @@ bool process(std::string path, bool createDummyFile) {
   if (!file.is_open()) {
     return false;
   }
-  std::string line = "";
+  std::string line;
   int lineNumber = 0;
 #if defined(WIN32) || defined(_WIN32) ||                                       \
     defined(__WIN32) && !defined(__CYGWIN__)
@@ -59,11 +59,11 @@ bool process(std::string path, bool createDummyFile) {
     path = filePath.string();
   }
   std::ofstream writeFile(path);
-  int lastLine = contents.size() - 1;
-  for (int line = 0; line < contents.size(); ++line) {
-    if (line != lastLine)
-      contents[line].push_back('\n');
-    writeFile.write(contents[line].c_str(), contents[line].size());
+  unsigned long lastLine = contents.size() - 1;
+  for (int lNumber = 0; lNumber < contents.size(); ++lNumber) {
+    if (lNumber != lastLine)
+      contents[lNumber].push_back('\n');
+    writeFile.write(contents[lNumber].c_str(), static_cast<int>(contents[lNumber].size()));
   }
   writeFile.close();
   return isModified;

@@ -5,12 +5,13 @@
 #include "constants.h"
 #include "run.h"
 
-int main(int argc, char *argv[]) {
+int main(const int argc, const char *argv[]) {
   std::vector<std::string> args;
+  args.reserve(argc);
   for (int i = 0; i < argc; ++i) {
-    args.push_back(argv[i]);
+    args.emplace_back(argv[i]);
   }
-  bool silent = (args[1] == "--silent");
+  const bool silent = (args[1] == "--silent");
   if (!silent) {
     std::cout << "888888b.\n";
     std::cout << "888  \"88b\n";
@@ -28,7 +29,6 @@ int main(int argc, char *argv[]) {
   std::cout << "OpenSSL not found! Exiting." << std::endl;
   return 1;
 #endif
-
   run(argc, argv, silent);
   return 0;
 }

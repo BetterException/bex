@@ -1,3 +1,3 @@
 #pragma once
 
-void run(int, char *[], bool);
+void run(int, const char *[], bool);

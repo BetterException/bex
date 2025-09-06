@@ -1,11 +1,11 @@
+#pragma once
+
 #include <string>
 #include <unordered_map>
 
 #include "version.h"
 
-namespace bex {
-
-namespace constant {
+namespace bex::constant {
 
 static std::unordered_map<std::string, std::string> data{
     {"CONF_FILE", "bex.conf"},
@@ -14,8 +14,6 @@ static std::unordered_map<std::string, std::string> data{
     {"GLOBAL_EXCEPTION_VARIABLE", "globalException"},
     {"GLOBAL_EXCEPTION_VARIABLE_DELIM", "%%"},
     {"DUMMY_FILE_PREFIX", "dummy-"},
-    {"CREATE_DUMMY_FILES", "FALSE"}};
+    {"CREATE_DUMMY_FILES", "TRUE"}};
 
-} // namespace constant
-
-} // namespace bex
+} // namespace bex::constant

@@ -9,7 +9,7 @@
 #include "constants.h"
 #include "process.h"
 
-void run(int argc, char *argv[], bool silent) {
+void run(const int argc, const char *argv[], const bool silent) {
   std::vector<std::future<bool>> futures;
   int filesModified = 0;
   std::string path = ".";
@@ -31,10 +31,10 @@ void run(int argc, char *argv[], bool silent) {
         }
         for (const auto &entry :
              std::filesystem::recursive_directory_iterator(pPath)) {
-          if (entry.is_directory())
+          if (entry.is_directory() || (entry.is_regular_file() && entry.path().filename() == bex::constant::data["CONF_FILE"]))
             continue;
           if (!entry.is_symlink() || !entry.is_socket()) {
-            std::filesystem::path tempPath(entry);
+            const std::filesystem::path& tempPath(entry);
             futures.push_back(std::async(
                 process, tempPath.string(),
                 conf.getBool("CREATE_DUMMY_FILES").has_value()
