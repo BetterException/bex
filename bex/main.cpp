@@ -5,7 +5,7 @@
 #include "constants.h"
 #include "run.h"
 
-int main(const int argc, const char *argv[]) {
+int main(const int argc, const char* argv[]) {
   std::vector<std::string> args;
   args.reserve(argc);
   for (int i = 0; i < argc; ++i) {

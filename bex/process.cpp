@@ -18,7 +18,7 @@ bool process(std::string path, bool createDummyFile) {
   }
   std::string line;
   int lineNumber = 0;
-#if defined(WIN32) || defined(_WIN32) ||                                       \
+#if defined(WIN32) || defined(_WIN32) || \
     defined(__WIN32) && !defined(__CYGWIN__)
   std::replace(path.begin(), path.end(), '\\', '/');
 #endif
@@ -61,9 +61,9 @@ bool process(std::string path, bool createDummyFile) {
   std::ofstream writeFile(path);
   unsigned long lastLine = contents.size() - 1;
   for (int lNumber = 0; lNumber < contents.size(); ++lNumber) {
-    if (lNumber != lastLine)
-      contents[lNumber].push_back('\n');
-    writeFile.write(contents[lNumber].c_str(), static_cast<int>(contents[lNumber].size()));
+    if (lNumber != lastLine) contents[lNumber].push_back('\n');
+    writeFile.write(contents[lNumber].c_str(),
+                    static_cast<int>(contents[lNumber].size()));
   }
   writeFile.close();
   return isModified;

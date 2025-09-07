@@ -6,7 +6,6 @@
 #include "version.h"
 
 namespace bex::constant {
-
 static std::unordered_map<std::string, std::string> data{
     {"CONF_FILE", "bex.conf"},
     {"MAJOR_VERSION", std::to_string(BEX_MAJOR_VERSION)},
@@ -15,5 +14,4 @@ static std::unordered_map<std::string, std::string> data{
     {"GLOBAL_EXCEPTION_VARIABLE_DELIM", "%%"},
     {"DUMMY_FILE_PREFIX", "dummy-"},
     {"CREATE_DUMMY_FILES", "TRUE"}};
-
-} // namespace bex::constant
+}  // namespace bex::constant

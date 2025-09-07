@@ -9,7 +9,7 @@
 #include "constants.h"
 #include "process.h"
 
-void run(const int argc, const char *argv[], const bool silent) {
+void run(const int argc, const char* argv[], const bool silent) {
   std::vector<std::future<bool>> futures;
   int filesModified = 0;
   std::string path = ".";
@@ -29,9 +29,11 @@ void run(const int argc, const char *argv[], const bool silent) {
             conf.clear();
           }
         }
-        for (const auto &entry :
+        for (const auto& entry :
              std::filesystem::recursive_directory_iterator(pPath)) {
-          if (entry.is_directory() || (entry.is_regular_file() && entry.path().filename() == bex::constant::data["CONF_FILE"]))
+          if (entry.is_directory() ||
+              (entry.is_regular_file() &&
+               entry.path().filename() == bex::constant::data["CONF_FILE"]))
             continue;
           if (!entry.is_symlink() || !entry.is_socket()) {
             const std::filesystem::path& tempPath(entry);
@@ -54,7 +56,7 @@ void run(const int argc, const char *argv[], const bool silent) {
     }
   }
 
-  for (auto &future : futures) {
+  for (auto& future : futures) {
     if (future.get()) {
       ++filesModified;
     }
