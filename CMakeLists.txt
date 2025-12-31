@@ -28,8 +28,9 @@ SET(SRC
 
 ADD_EXECUTABLE(${PROJECT_NAME} ${SRC})
 
+ADD_SUBDIRECTORY(deps/spdlog)
 find_package(OpenSSL REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE OpenSSL::SSL)
+target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog $<$<BOOL:${MINGW}>:ws2_32> OpenSSL::SSL)
 target_include_directories(${PROJECT_NAME} PRIVATE "bex")
 
 configure_file("${CMAKE_SOURCE_DIR}/bex/version.h.in" "${CMAKE_SOURCE_DIR}/bex/version.h")

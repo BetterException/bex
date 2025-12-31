@@ -1,5 +1,7 @@
 #include "process.h"
 
+#include <logger.h>
+
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -52,11 +54,13 @@ bool process(std::string path, bool createDummyFile) {
     ++lineNumber;
   }
   file.close();
+  bex::logger->info("Processing file: {}, modified: {}", path, isModified);
   if (createDummyFile) {
     std::filesystem::path filePath(path);
     std::string originalFileName = filePath.filename().string();
     filePath.replace_filename(dummyFilePrefix + originalFileName);
     path = filePath.string();
+    bex::logger->info("Creating dummy file: {}", path);
   }
   std::ofstream writeFile(path);
   unsigned long lastLine = contents.size() - 1;

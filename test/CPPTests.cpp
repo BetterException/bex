@@ -2,6 +2,7 @@
 
 #include <fstream>
 
+#include "logger.hpp"
 #include "process.h"
 #include "run.h"
 
@@ -17,6 +18,7 @@ std::string GotoLine(std::fstream &file, unsigned int num) {
 }
 
 TEST(CPPTests, SingleException) {
+  setup_logger();
   const bool openFile = process("../../test/files/cpp/testFile1.cpp", true);
   ASSERT_TRUE(openFile);
   std::fstream file("../../test/files/cpp/dummy-testFile1.cpp");
@@ -25,9 +27,11 @@ TEST(CPPTests, SingleException) {
             "39d6d272b157e60a7d6a8952b2ff1788c83376a5a396dac949398287e1bfab7d");
   file.close();
   std::filesystem::remove("../../test/files/cpp/dummy-testFile1.cpp");
+  destroy_logger();
 }
 
 TEST(CPPTests, MultiException) {
+  setup_logger();
   bool openFile = process("../../test/files/cpp/testFile2.cpp", true);
   ASSERT_TRUE(openFile);
   std::fstream file("../../test/files/cpp/dummy-testFile2.cpp");
@@ -39,9 +43,11 @@ TEST(CPPTests, MultiException) {
             "da6f683a09ce689d0d29a3a75ee593fdee26b81727f01e24ab8a0a6a28c92a36");
   file.close();
   std::filesystem::remove("../../test/files/cpp/dummy-testFile2.cpp");
+  destroy_logger();
 }
 
 TEST(CPPTests, FolderException) {
+  setup_logger();
   char *first = strdup("bex");
   char *second = strdup("../../test/folders/cpp/testFolder1/");
   const char* args[2] = {first, second};
@@ -74,9 +80,11 @@ TEST(CPPTests, FolderException) {
   std::filesystem::remove("../../test/folders/cpp/testFolder1/dummy-main.cpp");
   std::filesystem::remove("../../test/folders/cpp/testFolder1/utils/dummy-copy.cpp");
   std::filesystem::remove("../../test/folders/cpp/testFolder1/utils/dummy-multiply.cpp");
+  destroy_logger();
 }
 
 TEST(CPPTests, ConfigFolderTest) {
+  setup_logger();
   char *first = strdup("bex");
   char *second = strdup("../../test/folders/cpp/testFolder2/");
   const char* args[2] = {first, second};
@@ -88,4 +96,28 @@ TEST(CPPTests, ConfigFolderTest) {
   file.close();
   std::filesystem::remove("../../test/folders/cpp/testFolder2/extra-main.cpp");
   std::filesystem::remove("../../test/folders/cpp/testFolder2/utils/extra-copy.hpp");
+  destroy_logger();
+}
+
+TEST(CPPTests, ConfigFolderTest2) {
+  setup_logger();
+  char *first = strdup("bex");
+  char *second = strdup("../../test/folders/cpp/testFolder3/");
+  std::string sourceFile = "../../test/folders/cpp/testFolder3/copy.cpp";
+  std::string destinationFile = "../../test/folders/cpp/copy.cpp";
+  std::filesystem::copy(sourceFile, destinationFile);
+  const char* args[2] = {first, second};
+  run(2, args, true);
+  std::fstream file("../../test/folders/cpp/testFolder3/extra-copy.cpp");
+  ASSERT_FALSE(file.good());
+  file.open("../../test/folders/cpp/testFolder3/copy.cpp");
+  ASSERT_TRUE(file.good());
+  const std::string tempLine = GotoLine(file, 12);
+  ASSERT_EQ(tempLine.substr(57, 64),
+            "140ce55c53b0f9e4b8dc811d505b8c7ffeaa8f04f9fa2f1e9680585ea59d142e");
+  file.close();
+  std::filesystem::remove(sourceFile);
+  std::filesystem::copy(destinationFile, sourceFile);
+  std::filesystem::remove(destinationFile);
+  destroy_logger();
 }

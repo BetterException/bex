@@ -1,5 +1,7 @@
 #include "run.h"
 
+#include <logger.h>
+
 #include <filesystem>
 #include <future>
 #include <iostream>
@@ -21,12 +23,18 @@ void run(const int argc, const char* argv[], const bool silent) {
       if (!pPath.is_relative()) {
         pPath = pPath.relative_path();
       }
+      bex::logger->info("Path: " + pPath.string());
       if (std::filesystem::is_directory(pPath)) {
+        bex::logger->info("Path is a directory");
         if (std::filesystem::exists(pPath.string() + "/" +
                                     bex::constant::data["CONF_FILE"])) {
+          bex::logger->info("Path contains the configuration file");
           if (!conf.load(pPath.string() + "/" +
                          bex::constant::data["CONF_FILE"])) {
+            bex::logger->info("Config is missing or damaged");
             conf.clear();
+          } else {
+            bex::logger->info("Config loaded successfully");
           }
         }
         for (const auto& entry :

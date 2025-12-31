@@ -2,6 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.20)
 
 SET(cpp_sources
     "CPPTests.cpp"
+    "logger.hpp"
     "../bex/process.cpp"
     "../bex/generate.cpp"
     "../bex/run.cpp"
@@ -12,7 +13,7 @@ add_executable(${PROJECT_NAME}-test-cpp ${cpp_sources})
 
 find_package(OpenSSL REQUIRED)
 
-target_link_libraries(${PROJECT_NAME}-test-cpp GTest::gtest_main OpenSSL::SSL)
+target_link_libraries(${PROJECT_NAME}-test-cpp spdlog::spdlog GTest::gtest_main OpenSSL::SSL)
 target_include_directories(${PROJECT_NAME}-test-cpp PUBLIC "../bex")
 
 include(GoogleTest)
