@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <fstream>
+#include <filesystem>
 
 #include "logger.hpp"
 #include "process.h"
