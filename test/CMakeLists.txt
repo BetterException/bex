@@ -1,7 +1,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.20)
 
 SET(cpp_sources
-    "CPPTests.cpp"
+    "BexTests.cpp"
     "logger.hpp"
     "../bex/process.cpp"
     "../bex/generate.cpp"

@@ -18,7 +18,7 @@ std::string GotoLine(std::fstream &file, unsigned int num) {
   return line;
 }
 
-TEST(CPPTests, SingleException) {
+TEST(BexTests, SingleException) {
   setup_logger();
   const bool openFile = process("../../test/files/cpp/testFile1.cpp", true);
   ASSERT_TRUE(openFile);
@@ -31,7 +31,7 @@ TEST(CPPTests, SingleException) {
   destroy_logger();
 }
 
-TEST(CPPTests, MultiException) {
+TEST(BexTests, MultiException) {
   setup_logger();
   bool openFile = process("../../test/files/cpp/testFile2.cpp", true);
   ASSERT_TRUE(openFile);
@@ -47,7 +47,7 @@ TEST(CPPTests, MultiException) {
   destroy_logger();
 }
 
-TEST(CPPTests, FolderException) {
+TEST(BexTests, FolderException) {
   setup_logger();
   char *first = strdup("bex");
   char *second = strdup("../../test/folders/cpp/testFolder1/");
@@ -84,7 +84,7 @@ TEST(CPPTests, FolderException) {
   destroy_logger();
 }
 
-TEST(CPPTests, ConfigFolderTest) {
+TEST(BexTests, ConfigFolderTest) {
   setup_logger();
   char *first = strdup("bex");
   char *second = strdup("../../test/folders/cpp/testFolder2/");
@@ -100,7 +100,7 @@ TEST(CPPTests, ConfigFolderTest) {
   destroy_logger();
 }
 
-TEST(CPPTests, ConfigFolderTest2) {
+TEST(BexTests, ConfigFolderTest2) {
   setup_logger();
   char *first = strdup("bex");
   char *second = strdup("../../test/folders/cpp/testFolder3/");
