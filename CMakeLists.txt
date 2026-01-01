@@ -44,3 +44,15 @@ install(
     FILES "LICENSE"
     DESTINATION ${CMAKE_INSTALL_PREFIX}
 )
+
+install(
+    FILES "deps/googletest/LICENSE"
+    DESTINATION ${CMAKE_INSTALL_PREFIX}
+    RENAME "googletest-license"
+)
+
+install(
+    FILES "deps/spdlog/LICENSE"
+    DESTINATION ${CMAKE_INSTALL_PREFIX}
+    RENAME "spdlog-license"
+)
