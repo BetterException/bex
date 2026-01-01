@@ -27,10 +27,10 @@ void run(const int argc, const char* argv[], const bool silent) {
       if (std::filesystem::is_directory(pPath)) {
         bex::logger->info("Path is a directory");
         if (std::filesystem::exists(pPath.string() + "/" +
-                                    bex::constant::data["CONF_FILE"])) {
+                                    bex::constant::data[bex::constant::CONFIG_FILE])) {
           bex::logger->info("Path contains the configuration file");
           if (!conf.load(pPath.string() + "/" +
-                         bex::constant::data["CONF_FILE"])) {
+                         bex::constant::data[bex::constant::CONFIG_FILE])) {
             bex::logger->info("Config is missing or damaged");
             conf.clear();
           } else {
@@ -41,25 +41,25 @@ void run(const int argc, const char* argv[], const bool silent) {
              std::filesystem::recursive_directory_iterator(pPath)) {
           if (entry.is_directory() ||
               (entry.is_regular_file() &&
-               entry.path().filename() == bex::constant::data["CONF_FILE"]))
+               entry.path().filename() == bex::constant::data[bex::constant::CONFIG_FILE]))
             continue;
           if (!entry.is_symlink() || !entry.is_socket()) {
             const std::filesystem::path& tempPath(entry);
             futures.push_back(std::async(
                 process, tempPath.string(),
-                conf.getBool("CREATE_DUMMY_FILES").has_value()
-                    ? conf.getBool("CREATE_DUMMY_FILES").value()
+                conf.getBool(bex::constant::CREATE_DUMMY_FILES).has_value()
+                    ? conf.getBool(bex::constant::CREATE_DUMMY_FILES).value()
                     : bex::config::strToBool(
-                          bex::constant::data["CREATE_DUMMY_FILES"])));
+                          bex::constant::data[bex::constant::CREATE_DUMMY_FILES])));
           }
         }
       } else {
         futures.push_back(
             std::async(process, pPath.string(),
-                       conf.getBool("CREATE_DUMMY_FILES").has_value()
-                           ? conf.getBool("CREATE_DUMMY_FILES").value()
+                       conf.getBool(bex::constant::CREATE_DUMMY_FILES).has_value()
+                           ? conf.getBool(bex::constant::CREATE_DUMMY_FILES).value()
                            : bex::config::strToBool(
-                                 bex::constant::data["CREATE_DUMMY_FILES"])));
+                                 bex::constant::data[bex::constant::CREATE_DUMMY_FILES])));
       }
     }
   }

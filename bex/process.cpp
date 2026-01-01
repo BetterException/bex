@@ -26,19 +26,19 @@ bool process(std::string path, bool createDummyFile) {
 #endif
   std::vector<std::string> contents;
   std::string delimiter =
-      conf.getString("GLOBAL_EXCEPTION_VARIABLE_DELIM").has_value()
-          ? conf.getString("GLOBAL_EXCEPTION_VARIABLE_DELIM").value()
-          : bex::constant::data["GLOBAL_EXCEPTION_VARIABLE_DELIM"];
+      conf.getString(bex::constant::GLOBAL_EXCEPTION_VARIABLE_DELIM).has_value()
+          ? conf.getString(bex::constant::GLOBAL_EXCEPTION_VARIABLE_DELIM).value()
+          : bex::constant::data[bex::constant::GLOBAL_EXCEPTION_VARIABLE_DELIM];
   std::string exceptionKeyword =
       delimiter +
-      (conf.getString("GLOBAL_EXCEPTION_VARIABLE").has_value()
-           ? conf.getString("GLOBAL_EXCEPTION_VARIABLE").value()
-           : bex::constant::data["GLOBAL_EXCEPTION_VARIABLE"]) +
+      (conf.getString(bex::constant::GLOBAL_EXCEPTION_VARIABLE).has_value()
+           ? conf.getString(bex::constant::GLOBAL_EXCEPTION_VARIABLE).value()
+           : bex::constant::data[bex::constant::GLOBAL_EXCEPTION_VARIABLE]) +
       delimiter;
   std::string dummyFilePrefix =
-      conf.getString("DUMMY_FILE_PREFIX").has_value()
-          ? conf.getString("DUMMY_FILE_PREFIX").value()
-          : bex::constant::data["DUMMY_FILE_PREFIX"];
+      conf.getString(bex::constant::DUMMY_FILE_PREFIX).has_value()
+          ? conf.getString(bex::constant::DUMMY_FILE_PREFIX).value()
+          : bex::constant::data[bex::constant::DUMMY_FILE_PREFIX];
   while (!file.eof()) {
     std::getline(file, line);
     if (line.find("!" + exceptionKeyword) == std::string::npos &&
