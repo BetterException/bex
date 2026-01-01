@@ -13,7 +13,7 @@ static const std::string MINOR_VERSION = "MINOR_VERSION";
 static const std::string GLOBAL_EXCEPTION_VARIABLE = "GLOBAL_EXCEPTION_VARIABLE";
 static const std::string GLOBAL_EXCEPTION_VARIABLE_DELIM = "GLOBAL_EXCEPTION_VARIABLE_DELIM";
 static const std::string DUMMY_FILE_PREFIX = "DUMMY_FILE_PREFIX";
-static const std::string CREATE_DUMMY_FILES = "CREATE_PREFIX";
+static const std::string CREATE_DUMMY_FILES = "CREATE_DUMMY_FILES";
 
 static std::unordered_map<std::string, std::string> data{
     {CONFIG_FILE, "bex.conf"},
