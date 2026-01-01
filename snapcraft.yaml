@@ -14,6 +14,13 @@ architectures:
   - build-on: [arm64]
     build-for: [arm64]
 
+apps:
+  bex:
+    # This points to the location INSIDE the snap (where you saw it)
+    command: usr/bin/bex
+    # Optional: helps if your tool needs access to system resources
+    plugs: [home, network]
+
 parts:
   bex:
     source: https://github.com/BetterException/bex/archive/refs/tags/0.2.tar.gz
